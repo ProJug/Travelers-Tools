@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travelers Tools</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <button id="tab-money" class="tab active">Currency</button>
+      <button id="tab-temp" class="tab">Temperature</button>
+      <button id="tab-weight" class="tab">Weight</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Currency Converter -->
+    <section id="panel-money" class="panel">
+      <h1>Currency Converter</h1>
+      <div class="field">
+        <label for="money-amount">Amount:</label>
+        <input type="number" id="money-amount" placeholder="0.00" />
+      </div>
+      <div class="field">
+        <label for="money-from">From:</label>
+        <select id="money-from">
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+          <option value="JPY">JPY</option>
+          <option value="CAD">CAD</option>
+          <option value="AUD">AUD</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="money-to">To:</label>
+        <select id="money-to">
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+          <option value="JPY">JPY</option>
+          <option value="CAD">CAD</option>
+          <option value="AUD">AUD</option>
+        </select>
+      </div>
+      <button id="money-go" class="go">Convert</button>
+      <p id="money-result" class="result"></p>
+    </section>
+
+    <!-- Temperature Converter -->
+    <section id="panel-temp" class="panel hidden">
+      <h1>Temperature Converter</h1>
+      <div class="field">
+        <label for="temp-input">Value:</label>
+        <input type="number" id="temp-input" placeholder="0" />
+      </div>
+      <div class="field">
+        <label><input type="radio" name="temp-type" value="FtoC" checked /> °F → °C</label>
+        <label><input type="radio" name="temp-type" value="CtoF" /> °C → °F</label>
+      </div>
+      <button id="temp-go" class="go">Convert</button>
+      <p id="temp-result" class="result"></p>
+    </section>
+
+    <!-- Weight Converter -->
+    <section id="panel-weight" class="panel hidden">
+      <h1>Weight Converter</h1>
+      <div class="field">
+        <label for="weight-input">Value:</label>
+        <input type="number" id="weight-input" placeholder="0" />
+      </div>
+      <div class="field">
+        <label><input type="radio" name="weight-type" value="lbtoKg" checked /> lb → kg</label>
+        <label><input type="radio" name="weight-type" value="kgtoLb" /> kg → lb</label>
+      </div>
+      <button id="weight-go" class="go">Convert</button>
+      <p id="weight-result" class="result"></p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
