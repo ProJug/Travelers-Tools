@@ -1,65 +1,241 @@
-/* Mobile‑first reset & base */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/**
+ * style.css
+ * Mobile-first, labels under icons in bottom nav, glassy cards, fade-in panels,
+ * neumorphic inputs, 3D buttons, dark/light toggle.
+ */
+
+/*── Variables ───────────────────────────────────────────────────────────────*/
+:root {
+  --spacing-xs: 0.25rem;
+  --spacing-s: 0.5rem;
+  --spacing-m: 1rem;
+  --spacing-l: 1.5rem;
+  --spacing-xl: 2rem;
+
+  --font-family: 'Helvetica Neue', Arial, sans-serif;
+  --font-size: 1rem;
+  --line-height: 1.5;
+
+  --color-light-bg: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+  --color-dark-bg: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  --color-card-light: rgba(255,255,255,0.6);
+  --color-card-dark: rgba(32,42,54,0.6);
+
+  --color-primary: #4A90E2;
+  --color-accent:  #50E3C2;
+  --color-text-light: #222;
+  --color-text-dark:  #eee;
+  --color-input-bg: rgba(255,255,255,0.8);
+  --color-input-bg-dark: rgba(0,0,0,0.4);
+  --color-focus: #88C0D0;
 }
+
+/*── Base & Reset ───────────────────────────────────────────────────────────*/
+*,
+*::before,
+*::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
 body {
-  font-family: sans-serif;
-  line-height: 1.4;
-  padding: 1rem;
-  background: #f9f9f9;
-  color: #333;
-}
-header {
-  margin-bottom: 1rem;
-}
-nav {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  background: var(--color-light-bg);
+  color: var(--color-text-light);
+  -webkit-font-smoothing: antialiased;
   display: flex;
-  overflow-x: auto;
+  flex-direction: column;
+  align-items: center;
+  transition: background 0.5s, color 0.5s;
 }
-.tab {
-  flex: 1;
-  padding: 0.75rem;
+body.dark-mode {
+  background: var(--color-dark-bg);
+  color: var(--color-text-dark);
+}
+main {
+  width: 100%;
+  max-width: 480px;
+  padding: var(--spacing-m) var(--spacing-m) calc(60px + var(--spacing-l)) var(--spacing-m);
+}
+
+/*── Theme Toggle ────────────────────────────────────────────────────────────*/
+#theme-toggle {
+  position: fixed;
+  top: var(--spacing-m);
+  right: var(--spacing-m);
+  background: var(--color-card-light);
   border: none;
-  background: #eee;
-  font-size: 1rem;
+  padding: var(--spacing-xs);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 0.5s;
 }
-.tab.active {
-  background: #4285f4;
-  color: white;
+body.dark-mode #theme-toggle {
+  background: var(--color-card-dark);
+  color: var(--color-text-dark);
+}
+
+/*── Panels & Animations ────────────────────────────────────────────────────*/
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .panel {
-  background: white;
-  padding: 1rem;
-  border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: var(--color-card-light);
+  backdrop-filter: blur(8px);
+  margin-bottom: var(--spacing-l);
+  padding: var(--spacing-l);
+  border-radius: var(--spacing-s);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  opacity: 0;
+  animation: fadeInUp 0.4s ease forwards;
+  transition: background 0.5s;
+}
+body.dark-mode .panel {
+  background: var(--color-card-dark);
 }
 .hidden {
-  display: none;
+  display: none !important;
 }
+
+/*── Fields & Inputs ────────────────────────────────────────────────────────*/
 .field {
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-m);
+}
+.field.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-s);
 }
 .field label {
   display: block;
-  margin-bottom: 0.25rem;
+  margin-bottom: var(--spacing-xs);
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  transition: color 0.5s;
 }
-input[type="number"], select {
-  width: 100%;
-  padding: 0.5rem;
-  font-size: 1rem;
+body.dark-mode .field label {
+  color: var(--color-text-dark);
 }
-.go {
+input[type="number"],
+select {
   width: 100%;
-  padding: 0.75rem;
+  padding: var(--spacing-s) var(--spacing-m);
   font-size: 1rem;
   border: none;
-  background: #4285f4;
-  color: white;
-  border-radius: 4px;
+  border-radius: var(--spacing-s);
+  background: var(--color-input-bg);
+  box-shadow:
+    inset 4px 4px 8px rgba(0,0,0,0.1),
+    inset -4px -4px 8px rgba(255,255,255,0.7);
+  transition: box-shadow 0.2s, background 0.5s;
 }
+body.dark-mode input,
+body.dark-mode select {
+  background: var(--color-input-bg-dark);
+}
+input:focus,
+select:focus {
+  outline: none;
+  box-shadow:
+    inset 2px 2px 4px rgba(0,0,0,0.2),
+    inset -2px -2px 4px rgba(255,255,255,0.9);
+  border: 2px solid var(--color-focus);
+}
+
+/*── Radio Controls ────────────────────────────────────────────────────────*/
+.field.radios label {
+  display: inline-flex;
+  align-items: center;
+  margin-right: var(--spacing-l);
+  font-size: 0.875rem;
+}
+.field.radios input {
+  margin-right: var(--spacing-xs);
+}
+
+/*── Buttons ────────────────────────────────────────────────────────────────*/
+button.go {
+  width: 100%;
+  padding: var(--spacing-s) 0;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: white;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-primary));
+  border: none;
+  border-radius: var(--spacing-m);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+button.go:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+button.go:active {
+  transform: translateY(0);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+/*── Results ───────────────────────────────────────────────────────────────*/
 .result {
-  margin-top: 1rem;
-  font-weight: bold;
+  margin-top: var(--spacing-m);
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-primary);
+  transition: color 0.5s;
+}
+body.dark-mode .result {
+  color: var(--color-accent);
+}
+
+/*── Bottom Tab Bar ────────────────────────────────────────────────────────*/
+header {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 60px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  display: flex;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+  z-index: 100;
+}
+body.dark-mode header {
+  background: rgba(32,42,54,0.6);
+}
+nav {
+  display: flex;
+  width: 100%;
+}
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+.tab-label {
+  font-size: 0.75rem;
+  margin-top: var(--spacing-xs);
+  pointer-events: none;
+}
+.tab.active {
+  background: rgba(255,255,255,0.3);
+  color: var(--color-accent);
+}
+.tab:not(.active):hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/*── Responsive Adjustments ─────────────────────────────────────────────────*/
+@media (min-width: 600px) {
+  main { padding-bottom: var(--spacing-l); }
+  header { bottom: auto; top: 0; }
 }
